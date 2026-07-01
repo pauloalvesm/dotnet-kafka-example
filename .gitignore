@@ -1,0 +1,91 @@
+## Title: Visual Studio 2022 .gitignore
+## Source: https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
+
+# Mono auto generated files
+mono_crash.*
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa]rm/
+[Aa]rm64/
+bsearch.cache
+newtonsat.cache
+_Ch Horus Bot *
+*.ilk
+*.aps
+*.nto
+bin/
+obj/
+
+# Visual Studio 2015/2017/2019/2022 cache and settings
+.vs/
+# Uncomment if you have a subdirectory named .vs and want to track it
+# !.vs/
+
+# MSTest test results
+[T|t]est[R|r]esult*/
+[B|b]uild[L|l]og.*
+
+# NUnit
+/*.VisualState.xml
+_ReSharper.Caches/
+ReSharper.NUnit.VisualState.xml
+
+# Looker Data Discovery Platform
+.looker/
+
+# Crash dumps
+*.dmp
+
+# Office Projects Output
+_AssemblyReferences.g.cs
+
+# MWArray proxy binary caches
+.mwarray/
+
+# Just-In-Time debugger crash logs
+*.vshost.exe.manifest
+
+# ClickOnce directory
+publish/
+
+# Publish Web output
+*.[Pp]ublish.xml
+*.azurePubxml
+# Note: Critical for security. Contains web deploy passwords.
+*.pubxml
+*.publishproj
+
+# Blazor local development files
+*.subs.json
+
+# Local History for Visual Studio
+.localhistory/
+
+# Azure Functions local settings
+local.settings.json
+
+# Cloud Explorer modules
+CloudExplorerModules/
+
+# Windows image analyses caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
