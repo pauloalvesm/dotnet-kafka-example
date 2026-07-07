@@ -1,18 +1,15 @@
-﻿using Confluent.Kafka;
-using KafkaProducer.Models;
-using System.Text.Json;
+﻿using KafkaProducer.Models;
+using KafkaProducer.Services;
 
 internal class Program
 {
-    private static async Task Main(string[] args)
+    static async Task Main(string[] args)
     {
-        var config = new ProducerConfig
-        {
-            BootstrapServers = "localhost:9092"
-        };
-
-        using var producer = new ProducerBuilder<Null, string>(config).Build();
+        string bootstrapServers = "localhost:9092";
         string topic = "transaction-topic";
+
+        // Inicializa o nosso serviço customizado
+        using var kafkaService = new KafkaProducerService(bootstrapServers);
 
         Console.WriteLine($"--- Transaction Producer Started ({topic}) ---");
         Console.WriteLine("Press Enter to send a new simulated transaction (or type 'exit' to quit):\n");
@@ -30,17 +27,16 @@ internal class Program
                 CreatedAt = DateTime.UtcNow
             };
 
-            string jsonPayload = JsonSerializer.Serialize(newTransaction);
+            // Chamada limpa através da camada de serviço
+            bool isSuccess = await kafkaService.PublishTransactionAsync(topic, newTransaction);
 
-            try
+            if (isSuccess)
             {
-                var result = await producer.ProduceAsync(topic, new Message<Null, string> { Value = jsonPayload });
-
                 Console.WriteLine($"[Success] Transaction {newTransaction.Id} sent! Amount: ${newTransaction.Amount:N2}");
             }
-            catch (ProduceException<Null, string> e)
+            else
             {
-                Console.WriteLine($"[Error] Failed to send message: {e.Error.Reason}");
+                Console.WriteLine("[Warning] Could not confirm message persistence.");
             }
         }
     }
