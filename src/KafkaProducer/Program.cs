@@ -8,7 +8,6 @@ internal class Program
         string bootstrapServers = "localhost:9092";
         string topic = "transaction-topic";
 
-        // Inicializa o nosso serviço customizado
         using var kafkaService = new KafkaProducerService(bootstrapServers);
 
         Console.WriteLine($"--- Transaction Producer Started ({topic}) ---");
@@ -27,7 +26,6 @@ internal class Program
                 CreatedAt = DateTime.UtcNow
             };
 
-            // Chamada limpa através da camada de serviço
             bool isSuccess = await kafkaService.PublishTransactionAsync(topic, newTransaction);
 
             if (isSuccess)
