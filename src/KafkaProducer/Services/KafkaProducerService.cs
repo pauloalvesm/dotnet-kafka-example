@@ -7,18 +7,15 @@ namespace KafkaProducer.Services;
 public class KafkaProducerService : IDisposable
 {
     private readonly IProducer<Null, string> _producer;
-    private readonly string _bootstrapServers;
 
     public KafkaProducerService(string bootstrapServers)
+        : this(new ProducerBuilder<Null, string>(new ProducerConfig { BootstrapServers = bootstrapServers }).Build())
     {
-        _bootstrapServers = bootstrapServers;
+    }
 
-        var config = new ProducerConfig
-        {
-            BootstrapServers = _bootstrapServers
-        };
-
-        _producer = new ProducerBuilder<Null, string>(config).Build();
+    public KafkaProducerService(IProducer<Null, string> producer)
+    {
+        _producer = producer ?? throw new ArgumentNullException(nameof(producer));
     }
 
     public async Task<bool> PublishTransactionAsync(string topic, TransactionEvent transaction)
