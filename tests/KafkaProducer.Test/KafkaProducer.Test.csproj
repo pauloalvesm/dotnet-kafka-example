@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\KafkaConsumer\KafkaConsumer.csproj" />
     <ProjectReference Include="..\..\src\KafkaProducer\KafkaProducer.csproj" />
   </ItemGroup>
 
