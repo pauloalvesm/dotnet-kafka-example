@@ -10,18 +10,20 @@ public class KafkaConsumerService : IDisposable
     private readonly string _topic;
 
     public KafkaConsumerService(string bootstrapServers, string groupId, string topic)
+            : this(new ConsumerBuilder<Ignore, string>(new ConsumerConfig
+            {
+                BootstrapServers = bootstrapServers,
+                GroupId = groupId,
+                AutoOffsetReset = AutoOffsetReset.Earliest,
+                EnableAutoCommit = true
+            }).Build(), topic)
     {
-        _topic = topic;
+    }
 
-        var config = new ConsumerConfig
-        {
-            BootstrapServers = bootstrapServers,
-            GroupId = groupId,
-            AutoOffsetReset = AutoOffsetReset.Earliest,
-            EnableAutoCommit = true
-        };
-
-        _consumer = new ConsumerBuilder<Ignore, string>(config).Build();
+    public KafkaConsumerService(IConsumer<Ignore, string> consumer, string topic)
+    {
+        _consumer = consumer ?? throw new ArgumentNullException(nameof(consumer));
+        _topic = topic ?? throw new ArgumentNullException(nameof(topic));
     }
 
     public void StartConsuming(Action<TransactionEvent> onMessageReceived, CancellationToken cancellationToken)
