@@ -7,7 +7,7 @@
 
 ## 💻 Project
 
-Repository with a console application for using Kafka.
+Repository containing a console application for basic use of Kafka.
 
 ## 🚀 Technologies and Tools
 
@@ -17,11 +17,25 @@ This project was developed using the following technologies:
   - `.NET 8`
   - `Console Application`
   - `C#`
+  - `Kafka`
 
  ## 💾 Clone the repository
 
 ```bash
+# Clone the repository
 git clone https://github.com/pauloalvesm/dotnet-kafka-example.git
+
+# Navigate to the project folder
+cd dotnet-kafka-example\src
+
+# Restore dependencies
+dotnet restore
+
+# Run the project
+dotnet run
+
+# Install the Kafka server using Docker to use the services
+docker run -d --name kafka -p 9092:9092 apache/kafka:latest
 ```
   
 ## 👤 Author
